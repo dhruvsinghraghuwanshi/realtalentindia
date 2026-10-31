@@ -1,0 +1,27 @@
+[build]
+  command = "vite build"
+  publish = "dist/client"
+[build.environment]
+  NODE_VERSION = "24"
+[dev]
+  framework = "#custom"
+  command = "npm run dev"
+  targetPort = 3000
+  port = 8889
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "private, no-store"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
